@@ -10,4 +10,3 @@ target_include_directories(libreversestring PUBLIC .)
 add_executable(reversestring ${SOURCE_FILES} main.cpp)
 
 target_link_libraries(reversestring libreversestring)
-
