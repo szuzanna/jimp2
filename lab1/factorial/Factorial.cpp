@@ -3,7 +3,7 @@
 //
 #include "Factorial.h"
 
-int factorial(int value) {
+int Factorial(int value) {
   if(value>=13 || value<=-13) {
         return 0;
   }
@@ -11,7 +11,7 @@ int factorial(int value) {
       return 1;
   }
   if (value>0) {
-      return value * factorial(value - 1);
+      return value * Factorial(value - 1);
   }
-  return value *factorial(value+1);
+  return value * Factorial(value + 1);
 }

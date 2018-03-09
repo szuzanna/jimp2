@@ -5,5 +5,5 @@
 #include "Palindrome.h"
 
 int main() {
-    return is_palindrome("aaaa");
+    return IsPalindrome("aaaa");
 }

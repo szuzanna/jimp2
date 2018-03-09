@@ -4,12 +4,12 @@
 
 #include "ReverseString.h"
 
-std::string reverse (std::string str){
+std::string Reverse(std::string str){
     const char *character = str.c_str();
 
     if(character[0] !='\0'){
         size_t size = str.size();
-        return reverse(str.substr(1,size-1)).append(1,character[0]);
+        return Reverse(str.substr(1, size - 1)).append(1,character[0]);
     }
     else{
         return"";

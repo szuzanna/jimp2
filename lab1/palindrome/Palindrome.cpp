@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Palindrome.h"
 
-bool is_palindrome(std::string str){
+bool IsPalindrome(std::string str){
     int i = 0;
     const char *characters = str.c_str();
     size_t size = str.size();

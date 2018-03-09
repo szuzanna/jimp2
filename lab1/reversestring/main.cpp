@@ -5,5 +5,5 @@
 #include "ReverseString.h"
 
 int main(){
-    std::cout<< reverse("abc")<<std::endl;
+    std::cout<< Reverse("abc")<<std::endl;
 }
