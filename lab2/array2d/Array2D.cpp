@@ -40,7 +40,7 @@ int **NewArray2D(int n_rows, int n_columns) {
 
 void DeleteArray2D(int **array, int n_rows, int n_columns){
     for (int i = 0; i<n_rows; ++i){
-        delete [] array[n_columns];
+        delete [] array[i];
     }
     delete [] array;
 }
