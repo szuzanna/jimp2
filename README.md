@@ -1,12 +1,8 @@
 ### C++ programming classes problmes ###
 
 [![Build Status](https://travis-ci.org/szuzanna/jimp2.svg)](https://travis-ci.org/szuzanna/jimp2)
-[![Build status](https://ci.appveyor.com/api/projects/status/8slxsc3sjvvuhiu3?svg=true)
+[![Build status](https://ci.appveyor.com/api/projects/status/8slxsc3sjvvuhiu3/branch/master?svg=true)](https://ci.appveyor.com/project/szuzanna/jimp2/branch/master)
 
-After cloning please replace badges with your project's badges
-
-For [travis](https://travis-ci.org)
-For [appveyor](https://ci.appveyor.com)
 
 #### CLion CMakeLists.txt template ####
 
