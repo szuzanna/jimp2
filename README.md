@@ -1,6 +1,6 @@
 ### C++ programming classes problmes ###
 
-[![Build Status](https://travis-ci.org/szuzanna/jimp2.svg?branch=master)](https://travis-ci.org/szuzanna/jimp2)
+[![Build Status](https://travis-ci.org/szuzanna/jimp2.svg)](https://travis-ci.org/szuzanna/jimp2)
 [![Build status](https://ci.appveyor.com/api/projects/status/8slxsc3sjvvuhiu3?svg=true)
 
 After cloning please replace badges with your project's badges
