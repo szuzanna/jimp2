@@ -11,7 +11,6 @@ int GreatestProduct(const std::vector<int> &numbers, int k){
     std::vector<int> positive_vec;
     std::vector<int> negative_vec;
 
-
     int result = 1;
 
     for(int v : numbers){
