@@ -15,7 +15,7 @@ namespace utility {
     }
 
     std::pair<int, std::string> IterableIteratorWrapper::operator*() const {
-        //return std::pair<int, std::string>(this->iterator_->Dereference());
+
         return iterator_->Dereference();
     }
 
@@ -66,7 +66,6 @@ namespace utility {
     }
 
     bool ZipperIterator::NotEquals(const std::unique_ptr<IterableIterator> &other) const {
-        //return (this->Dereference() != other->Dereference());
         return left_begin_ != other->left_begin_ && right_begin_ != other->right_begin_;
     }
 
