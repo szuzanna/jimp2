@@ -3,6 +3,7 @@
 //
 
 #include "Serialization.h"
+#include <regex>
 
 namespace academia {
 
@@ -37,16 +38,22 @@ namespace academia {
     }
 
     Building::Building(int building_id, std::string building_name,
-                       const std::vector<std::reference_wrapper<const Serializable>> &rooms) {
+                       const std::vector<Room> &rooms) {
         building_id_ = building_id;
-        building_name_ = building_name;
+        building_name_ = std::move(building_name);
         rooms_ = rooms;
     }
 
     void Building::Serialize(Serializer *serializer) const {
+        serializer->Header("{");
         serializer->IntegerField("building id", building_id_);
         serializer->StringField("name", building_name_);
-        serializer->ArrayField("rooms", rooms_);
+        std::vector<std::reference_wrapper<const Serializable>> serializer_rooms_;
+        for (auto &room: rooms_) {
+            serializer_rooms_.emplace_back(room);
+        }
+        serializer->ArrayField("rooms", serializer_rooms_);
+        serializer->Footer("}");
     }
 
 /////////////JSON
@@ -72,6 +79,18 @@ namespace academia {
 
     void JsonSerializer::ArrayField(const std::string &field_name,
                                     const std::vector<std::reference_wrapper<const academia::Serializable>> &value) {
+        *out_ << ", \"" << field_name << "\": [";
+        int i = 0;
+
+        for (const Serializable &room : value) {
+            if (i != 0) {
+                *out_ << ", ";
+            }
+            room.Serialize(this);
+            ++i;
+        }
+
+        *out_ << "]";
     }
 
     void JsonSerializer::Header(const std::string &object_name) {

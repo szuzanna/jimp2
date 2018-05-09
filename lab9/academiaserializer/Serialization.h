@@ -16,7 +16,7 @@ namespace academia {
 
     class Serializer {
     public:
-        explicit Serializer(std::ostream *out);
+        Serializer(std::ostream *out);
 
         virtual void IntegerField(const std::string &field_name, int value)=0;
 
@@ -69,14 +69,14 @@ namespace academia {
 
     class Building : public Serializable {
     public:
-        Building(int room_id, std::string room_name, const std::vector<std::reference_wrapper<const Serializable>> &rooms);
+        Building(int room_id, std::string room_name, const std::vector<Room> &rooms);
 
         void Serialize(Serializer *serializer) const override;
 
     public:
         int building_id_;
         std::string building_name_;
-        std::vector<std::reference_wrapper<const Serializable>> rooms_;
+        std::vector<Room> rooms_;
     };
 
 
