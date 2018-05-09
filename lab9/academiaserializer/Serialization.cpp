@@ -19,7 +19,7 @@ namespace academia {
 
     void Room::Serialize(Serializer *serializer) const {
         serializer->Header("room");
-        serializer->IntegerField("no", room_id_);
+        serializer->IntegerField("id", room_id_);
         serializer->StringField("name", room_name_);
         serializer->StringField("type", getTyp(type_));
         serializer->Footer("\\room");
@@ -45,20 +45,20 @@ namespace academia {
     }
 
     void Building::Serialize(Serializer *serializer) const {
-        serializer->Header("{");
-        serializer->IntegerField("building id", building_id_);
+        serializer->Header("building");
+        serializer->IntegerField("id", building_id_);
         serializer->StringField("name", building_name_);
         std::vector<std::reference_wrapper<const Serializable>> serializer_rooms_;
         for (auto &room: rooms_) {
             serializer_rooms_.emplace_back(room);
         }
         serializer->ArrayField("rooms", serializer_rooms_);
-        serializer->Footer("}");
+        serializer->Footer("\\building");
     }
 
 /////////////JSON
     void JsonSerializer::IntegerField(const std::string &field_name, int value) {
-        *out_ << "\"id\": " << value;
+        *out_ << "\"" << field_name << "\": " << value;
     }
 
     void JsonSerializer::DoubleField(const std::string &field_name, double value) {
@@ -100,5 +100,42 @@ namespace academia {
     void JsonSerializer::Footer(const std::string &object_name) {
         *out_ << "}";
     }
+    ////////////////////XML
 
+    void XmlSerializer::IntegerField(const std::string &field_name, int value) {
+        *out_ << "<" << field_name << ">" << value << "<\\" << field_name << ">";
+    }
+
+    void XmlSerializer::DoubleField(const std::string &field_name, double value) {
+
+    }
+
+    void XmlSerializer::StringField(const std::string &field_name, const std::string &value) {
+        *out_ << "<" << field_name << ">" << value << "<\\" << field_name << ">";
+    }
+
+    void XmlSerializer::BooleanField(const std::string &field_name, bool value) {
+
+    }
+
+    void XmlSerializer::SerializableField(const std::string &field_name, const academia::Serializable &value) {
+
+    }
+
+    void XmlSerializer::ArrayField(const std::string &field_name,
+                                   const std::vector<std::reference_wrapper<const academia::Serializable>> &value) {
+        *out_ << "<" << field_name << ">";
+        for (const Serializable &room : value) {
+            room.Serialize(this);
+        }
+        *out_ << "<\\" << field_name << ">";
+    }
+
+    void XmlSerializer::Header(const std::string &object_name) {
+        *out_ << "<" << object_name << ">";
+    }
+
+    void XmlSerializer::Footer(const std::string &object_name) {
+        *out_ << "<" << object_name << ">";
+    }
 }
