@@ -32,8 +32,8 @@ build_script:
   - dir tests\exampletest
   - tests\exampletest\example_examplelibrary_tests.exe
 
-  - mingw32-make lab9_json_serializer_tests
+  - mingw32-make lab9_building_repository_tests
   - dir tests
   - dir tests\lab9test
-  - tests\lab9test\lab9_json_serializer_tests.exe
+  - tests\lab9test\lab9_building_repository_tests.exe
 
