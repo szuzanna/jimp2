@@ -1,9 +1,9 @@
 //
 // Created by Zuzanna on 07.05.2018.
 //
-
 #include "Serialization.h"
 #include <regex>
+#include <experimental/optional>
 
 namespace academia {
 
@@ -54,6 +54,10 @@ namespace academia {
         }
         serializer->ArrayField("rooms", serializer_rooms_);
         serializer->Footer("\\building");
+    }
+
+    int Building::Id() const {
+        return building_id_;
     }
 
 /////////////JSON
@@ -137,5 +141,38 @@ namespace academia {
 
     void XmlSerializer::Footer(const std::string &object_name) {
         *out_ << "<" << object_name << ">";
+    }
+
+///////////BuildingRepository
+    void BuildingRepository::Add(const Building &builiding_object) {
+        buildings_.emplace_back(builiding_object);
+    }
+
+    void BuildingRepository::StoreAll(Serializer *serializer) const {
+        serializer->Header("building_repository");
+        std::vector<std::reference_wrapper<const Serializable>> tmp;
+        for (auto &n : buildings_) {
+            tmp.emplace_back(std::cref(n));
+        }
+        serializer->ArrayField("buildings", tmp);
+        serializer->Footer("building_repository");
+    }
+
+    BuildingRepository::BuildingRepository(const std::initializer_list<Building> &sample_building) {
+        for (auto &b: sample_building) {
+            buildings_.emplace_back(b);
+        }
+    }
+
+    std::experimental::optional<Building> BuildingRepository::operator[](int id) const {
+        for (auto &n : buildings_) {
+            if (n.Id() == id) {
+                return std::experimental::make_optional(n);
+            }
+        }
+    }
+
+    BuildingRepository::BuildingRepository() {
+        buildings_.clear();
     }
 }

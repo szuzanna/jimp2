@@ -67,6 +67,8 @@ script:
   - tests/lab4test/lab4_simple_template_engine_injection_tests
   - make lab4_simple_json_tests
   - tests/lab4test/lab4_simple_json_tests
+  - make lab9_building_repository_tests
+  - tests/lab9test/lab9_building_repository_tests
 
 notifications:
   email: false

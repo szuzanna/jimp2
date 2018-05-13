@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <functional>
+#include <experimental/optional>
 
 
 namespace academia {
@@ -73,6 +74,8 @@ namespace academia {
 
         void Serialize(Serializer *serializer) const override;
 
+        int Id() const;
+
     public:
         int building_id_;
         std::string building_name_;
@@ -124,6 +127,18 @@ namespace academia {
         void Header(const std::string &object_name) override;
 
         void Footer(const std::string &object_name) override;
+
+    };
+
+    class BuildingRepository{
+    public:
+        BuildingRepository(const std::initializer_list<Building> &sample_building);
+        BuildingRepository();
+        void StoreAll(Serializer *serializer) const;
+        void Add(const Building &builiding_object);
+        std::experimental::optional<Building> operator[](int id) const;
+    private:
+        std::vector<Building> buildings_;
 
     };
 }
