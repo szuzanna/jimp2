@@ -22,7 +22,7 @@ namespace academia {
         serializer->IntegerField("id", room_id_);
         serializer->StringField("name", room_name_);
         serializer->StringField("type", getTyp(type_));
-        serializer->Footer("\\room");
+        serializer->Footer("room");
     }
 
     std::string Room::getTyp(Room::Type type) const {
@@ -53,7 +53,7 @@ namespace academia {
             serializer_rooms_.emplace_back(room);
         }
         serializer->ArrayField("rooms", serializer_rooms_);
-        serializer->Footer("\\building");
+        serializer->Footer("building");
     }
 
     int Building::Id() const {
@@ -111,7 +111,7 @@ namespace academia {
     }
 
     void XmlSerializer::DoubleField(const std::string &field_name, double value) {
-
+        *out_ << "<" << field_name << ">" << value << "<\\" << field_name <<">";
     }
 
     void XmlSerializer::StringField(const std::string &field_name, const std::string &value) {
@@ -119,11 +119,13 @@ namespace academia {
     }
 
     void XmlSerializer::BooleanField(const std::string &field_name, bool value) {
-
+        *out_ << "<" << field_name << ">" << value<< "<\\" << field_name << ">";
     }
 
     void XmlSerializer::SerializableField(const std::string &field_name, const academia::Serializable &value) {
-
+        *out_ << "<" + field_name + ">";
+        value.Serialize(this);
+        *out_ << "<\\" + field_name + ">";
     }
 
     void XmlSerializer::ArrayField(const std::string &field_name,
@@ -140,7 +142,7 @@ namespace academia {
     }
 
     void XmlSerializer::Footer(const std::string &object_name) {
-        *out_ << "<" << object_name << ">";
+        *out_ << "<\\" << object_name << ">";
     }
 
 ///////////BuildingRepository
