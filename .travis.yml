@@ -75,7 +75,6 @@ script:
   - tests/lab9test/lab9_json_serializer_tests
   - make lab9_xml_serializer_tests
   - tests/lab9test/lab9_json_serializer_tests
-  - make lab9_all_tests
-  - tests/lab9test/lab9_all_tests
+
 notifications:
   email: false

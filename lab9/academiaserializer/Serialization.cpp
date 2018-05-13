@@ -62,7 +62,7 @@ namespace academia {
 
 /////////////JSON
     void JsonSerializer::IntegerField(const std::string &field_name, int value) {
-        *out_ << "\"" << field_name << "\": " << value;
+        *out_ << "\"" << field_name << "\": " << value<<", ";
     }
 
     void JsonSerializer::DoubleField(const std::string &field_name, double value) {
@@ -70,7 +70,10 @@ namespace academia {
     }
 
     void JsonSerializer::StringField(const std::string &field_name, const std::string &value) {
-        *out_ << ", \"" << field_name << "\": \"" << value + "\"";
+        *out_ << "\"" << field_name << "\": \"" << value + "\"";
+        if(field_name != "type"){
+            *out_<<", ";
+        }
     }
 
     void JsonSerializer::BooleanField(const std::string &field_name, bool value) {
@@ -78,15 +81,18 @@ namespace academia {
     }
 
     void JsonSerializer::SerializableField(const std::string &field_name, const academia::Serializable &value) {
-
+        value.Serialize(this);
+        *out_<<", ";
     }
 
     void JsonSerializer::ArrayField(const std::string &field_name,
                                     const std::vector<std::reference_wrapper<const academia::Serializable>> &value) {
-        *out_ << ", \"" << field_name << "\": [";
+
+        *out_ << "\"" << field_name << "\": [";
         int i = 0;
 
         for (const Serializable &room : value) {
+
             if (i != 0) {
                 *out_ << ", ";
             }
