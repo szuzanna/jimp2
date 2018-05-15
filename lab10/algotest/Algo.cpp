@@ -52,4 +52,10 @@ namespace algo {
     bool ContainsValue(const std::map<std::string, int> &v, int value) {
         return any_of(v.begin(),v.end(), [value](std::pair<std::string, int> v){return v.second == value; });
     }
+
+    std::map<std::string, int> DivisableBy(const std::map<std::string, int> &m, int divisor) {
+        std::map<std::string, int> tmp;
+        copy_if(m.begin(),m.end(),inserter(tmp,tmp.end()),[divisor](std::pair<std::string, int> p){ return (p.second%divisor) == 0;});
+        return tmp;
+    }
 }
