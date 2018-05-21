@@ -75,8 +75,10 @@ script:
   - tests/lab9test/lab9_json_serializer_tests
   - make lab9_xml_serializer_tests
   - tests/lab9test/lab9_json_serializer_tests
-  - make lab10_algo_step5_tests
-  - tests/lab10test/lab10_algo_step5_tests
+  - make lab10_scheduler_tests
+  - tests/lab10test/lab10_scheduler_tests
+  - make lab10_schedule_tests
+  - tests/lab10test/lab10_schedule_tests
 
 notifications:
   email: false
